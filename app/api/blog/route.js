@@ -6,7 +6,7 @@ import Blog from "@/models/Blog.js";
 export const GET = async()=>{
     try{
         await connectMongoDB()
-        const blogs = await Blog.find({}).populate("authorId").select('-password')
+        const blogs = await Blog.find({})
         return NextResponse.json({ data: blogs }, { status: 200 });
     }catch(error){
         console.log('eee', error)
