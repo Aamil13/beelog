@@ -2,11 +2,12 @@ import connectMongoDB from "@/utils/db";
 import { NextResponse } from "next/server";
 import { verifyJwtToken } from "@/utils/jwt";
 import Blog from "@/models/Blog.js";
+import User from "@/models/User";
 
 export const GET = async()=>{
     try{
         await connectMongoDB()
-        const blogs = await Blog.find({})
+        const blogs = await Blog.find({}).populate({ path: 'authorId', model: User })
         return NextResponse.json({ data: blogs }, { status: 200 });
     }catch(error){
         console.log('eee', error)
